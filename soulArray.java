@@ -694,12 +694,15 @@ private void showWinner() {
     horses.setVisible(false);
     hrInputPanel.setVisible(false);
     hrBetPanel.setVisible(false);
-    coinsPanel.setVisible(false);
+    coinsPanel.setVisible(true);
 
     Random rand = new Random();
     String[] horseList = {"CERBERUS", "PERSEPHONE", "HADES", "VOSKOPOULOS", "TOM"};
     int winningIndex = rand.nextInt(horseList.length);
     String winningHorse = horseList[winningIndex];
+
+    int betAmount = this.betAmount[0]; 
+    int coinsWon = 0;
 
     horsePodiumPanel = new JPanel();
     horsePodiumPanel.setBounds(100, 200, 600, 110);
@@ -756,6 +759,24 @@ private void showWinner() {
     window.add(otherHorsesPanel);
     window.add(horsePodiumPanel);
 
+    if (winningHorse.equals("CERBERUS")) {
+        coinsWon = 4 * betAmount;
+        coins += coinsWon; 
+        JOptionPane.showMessageDialog(window, "You won " + coinsWon + " coins!");
+    } else {
+        coinsWon = -betAmount;
+        coins += coinsWon; 
+        JOptionPane.showMessageDialog(window, "You lost " + betAmount + " coins.");
+    }
+    coinsText.setText("Coins: " + coins);
+
+    coinsPanel.setBounds(300, 80, 200, 50);
+
+    Timer timer = new Timer(5000, e -> {
+        mainMenu(); 
+    });
+    timer.setRepeats(false); 
+    timer.start(); 
 }
 
 public void Elemental() {
