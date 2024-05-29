@@ -36,8 +36,8 @@ public class soulArray {
     final String[] selectedHorse = {""};
     private int[] betAmount = new int[1];
     // horse racing panels
-    JLabel hrTitle, hrSubtitle, hrEnterBet, hrInputLabel, winnerLabel, theWinnerIsLabel, losingScreenLabel;
-    JPanel hrTitlePanel, hrSubPanel, hrBetPanel, hrInputPanel, horsePodiumPanel, otherHorsesPanel, theWinnerIsPanel, losingScreenPanel;
+    JLabel hrTitle, hrSubtitle, hrEnterBet, hrInputLabel, winnerLabel, theWinnerIsLabel;
+    JPanel hrTitlePanel, hrSubPanel, hrBetPanel, hrInputPanel, horsePodiumPanel, otherHorsesPanel, theWinnerIsPanel;
     JTextField hrInputField;
     JButton hrInputButton;
 
@@ -786,46 +786,23 @@ private void showWinner() {
         JOptionPane.showMessageDialog(window, "You won " + coinsWon + " coins!");
         coinsText.setText("Coins: " + coins);
         System.out.println(coins + ": coins, " + betAmount + ": bet amount, " + coinsWon + ": coins won");
-        Timer timer = new Timer(2000, e -> {
-            mainMenu(); 
-        });
-        timer.setRepeats(false); 
-        timer.start(); 
     } else {
-        boolean lostHorseRacing = false;
         System.out.println(coins);
         coins -= betAmount;
         JOptionPane.showMessageDialog(window, "You lost " + betAmount + " coins.");
         coinsText.setText("Coins: " + coins);
         System.out.println(coins + ": coins, " + betAmount + ": bet amount");
-        if (coins <= 0) {
-            goBackToMainB.setVisible(false);
-            coinsPanel.setVisible(false);
-            otherHorsesPanel.setVisible(false);
-            horsePodiumPanel.setVisible(false);
-            losingScreenPanel = new JPanel();
-            losingScreenPanel.setBounds(100, 200, 600, 300);
-            losingScreenPanel.setBackground(Color.RED);
-            losingScreenLabel = new JLabel("You have run out of coins. Better luck next time!");
-            losingScreenLabel.setHorizontalAlignment(JLabel.CENTER);
-            losingScreenLabel.setVerticalAlignment(JLabel.CENTER);
-            losingScreenLabel.setForeground(Color.WHITE);
-            losingScreenLabel.setFont(normalFont);
-            losingScreenPanel.add(losingScreenLabel);
-            window.add(losingScreenPanel);
-            lostHorseRacing = true;
-        }
-        if (!lostHorseRacing){
-            Timer timer = new Timer(2000, e -> {
-                mainMenu(); 
-            });
-            timer.setRepeats(false); 
-            timer.start(); 
-        }
     }
 
     coinsPanel.setBounds(300, 80, 200, 50);
+
+    Timer timer = new Timer(10, e -> {
+        mainMenu(); 
+    });
+    timer.setRepeats(false); 
+    timer.start(); 
 }
+
 
 public void Elemental() {
     elementalPanel = new JPanel();
